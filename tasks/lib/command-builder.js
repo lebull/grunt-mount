@@ -33,7 +33,7 @@ module.exports.mount = function(options, platform, sep){
 
     var path = buildPath(options, platform, sep);
 
-    if(options.hasOwnProperty("mountPoint")){
+    if(options.hasOwnProperty("mountPoint") && options.mountPoint){
       mountPoint = pathNormaliser(options.mountPoint, sep);
     }
 
@@ -75,7 +75,9 @@ module.exports.mount = function(options, platform, sep){
 };
 
 module.exports.unmount = function(options, platform, sep){
-    var mountPoint = pathNormaliser(options.mountPoint, sep);
+    if(options.hasOwnProperty("mountPoint") && options.mountPoint){
+      mountPoint = pathNormaliser(options.mountPoint, sep);
+    }
 
     var command = {
         darwin:[
