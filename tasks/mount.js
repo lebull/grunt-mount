@@ -43,13 +43,16 @@ module.exports = function(grunt){
 
         grunt.verbose.writeflags(options, 'Options');
 
-        if(grunt.file.exists(options.mountPoint)){
-            grunt.log.warn('mount point already exists, deleting');
-            deleteMountPoint(options.mountPoint);
-        }
+        
+        if(options.hasOwnProperty("mountPoint"){
+          if(grunt.file.exists(options.mountPoint)){
+              grunt.log.warn('mount point already exists, deleting');
+              deleteMountPoint(options.mountPoint);
+          }
 
-        if(process.platform !== 'win32'){
-            grunt.file.mkdir(options.mountPoint, {force: true});
+          if(process.platform !== 'win32'){
+              grunt.file.mkdir(options.mountPoint, {force: true});
+          }
         }
 
         exec(command, grunt, done);
