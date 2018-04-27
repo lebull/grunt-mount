@@ -75,6 +75,9 @@ module.exports.mount = function(options, platform, sep){
 };
 
 module.exports.unmount = function(options, platform, sep){
+
+    var mountPoint;
+
     if(options.hasOwnProperty("mountPoint") && options.mountPoint != null){
       mountPoint = pathNormaliser(options.mountPoint, sep);
     }

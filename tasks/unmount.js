@@ -34,7 +34,7 @@ module.exports = function(grunt){
         grunt.verbose.writeflags(options, 'Options');
 
         exec(command, grunt, function(){
-            if(options.hasOwnProperty("mountPoint"){
+            if(options.hasOwnProperty("mountPoint")){
               grunt.verbose.writeln('deleting folder: ' + options.mountPoint);
               deleteMountPoint(options.mountPoint);
             }

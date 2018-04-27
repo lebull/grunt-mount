@@ -4,6 +4,7 @@ module.exports = function(grunt){
 
         deleteMountPoint = function(folder){
 
+
         // need to fs.unlink directly on windows because
         // the grunt.file.delete method doesn't recognise symlinks!
         if(process.platform === 'win32'){
@@ -43,8 +44,8 @@ module.exports = function(grunt){
 
         grunt.verbose.writeflags(options, 'Options');
 
-        
-        if(options.hasOwnProperty("mountPoint"){
+
+        if(options.hasOwnProperty("mountPoint")){
           if(grunt.file.exists(options.mountPoint)){
               grunt.log.warn('mount point already exists, deleting');
               deleteMountPoint(options.mountPoint);
