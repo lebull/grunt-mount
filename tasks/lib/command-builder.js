@@ -28,8 +28,14 @@ mklink = function(driveLetter, mountPoint){
 };
 
 module.exports.mount = function(options, platform, sep){
-    var path = buildPath(options, platform, sep),
-        mountPoint = pathNormaliser(options.mountPoint, sep);
+
+    var mountPoint;
+
+    var path = buildPath(options, platform, sep);
+
+    if(options.hasOwnProperty("mountPoint")){
+      mountPoint = pathNormaliser(options.mountPoint, sep);
+    }
 
     var command = {
         darwin:[
@@ -50,14 +56,20 @@ module.exports.mount = function(options, platform, sep){
             options.windows.driveLetter + ":",
             path,
             options.password ? options.password : "",
-            options.username ? "/user:" + options.username : "",
-            "&&",
-            mklink(options.windows.driveLetter, mountPoint)
+            options.username ? "/user:" + options.username : ""
+
         ],
         // Todo:
         sunos: [],
         freebsd: []
     };
+
+
+    //Refactor mountpoint for windows to be optional.
+    if(mountPoint){
+      command.win32.push("&&");
+      command.win32.push(mklink(options.windows.driveLetter, mountPoint));
+    }
 
     return command[platform].filter(function(v){ return v !== '';}).join(" ").trim();
 };

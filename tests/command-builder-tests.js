@@ -53,6 +53,15 @@ describe('command builder tests', function(){
                 var result = commandBuilder.mount(options, 'win32', '\\');
                 result.should.eql('net use X: \\\\server.com\\path\\to\\share && mklink /d ..\\share X:\\');
             });
+
+            it('should return the correct command when a mountpoint is not specified', function(){
+              var options = util._extend({}, standardOptions);
+              delete options.mountPoint;
+
+              var result = commandBuilder.mount(options, 'win32', '\\');
+              result.should.eql('net use X: \\\\server.com\\path\\to\\share password /user:someuser');
+            });
+
         });
 
         describe('building the mac os command', function(){
